@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Exposición — 3 Personas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05080F;
+  --surface:#0C1220;
+  --surface2:#111827;
+  --border:rgba(255,255,255,0.06);
+  --text:#E8EFF8;
+  --muted:rgba(232,239,248,0.45);
+
+  --p1:#00C9A7;   /* teal — persona 1 */
+  --p1-bg:rgba(0,201,167,0.07);
+  --p1-border:rgba(0,201,167,0.22);
+
+  --p2:#7C6CFC;   /* violet — persona 2 */
+  --p2-bg:rgba(124,108,252,0.07);
+  --p2-border:rgba(124,108,252,0.22);
+
+  --p3:#F4804A;   /* amber-orange — persona 3 */
+  --p3-bg:rgba(244,128,74,0.07);
+  --p3-border:rgba(244,128,74,0.22);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(0,201,167,0.05) 0%,transparent 70%),
+                   radial-gradient(ellipse 50% 35% at 10% 100%,rgba(124,108,252,0.05) 0%,transparent 70%);
+  pointer-events:none;z-index:0
+}
+
+/* ── LAYOUT ── */
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:48px 32px 80px}
+
+/* ── HERO ── */
+.hero{margin-bottom:48px;animation:up .5s ease both}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--p1);border:1px solid var(--p1-border);background:var(--p1-bg);padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--p1);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(22px,3vw,40px);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:10px}
+.hero h1 span{color:var(--p1)}
+.hero-sub{font-size:14px;color:var(--muted);max-width:580px;line-height:1.7}
+.hero-info{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.chip{font-family:'DM Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);color:var(--muted);background:var(--surface2)}
+
+/* ── TABS ── */
+.tabs-nav{display:flex;gap:6px;margin-bottom:32px;flex-wrap:wrap}
+.tab-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;padding:8px 18px;border-radius:30px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:8px}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.p1.active{background:var(--p1-bg);border-color:var(--p1-border);color:var(--p1)}
+.tab-btn.p2.active{background:var(--p2-bg);border-color:var(--p2-border);color:var(--p2)}
+.tab-btn.p3.active{background:var(--p3-bg);border-color:var(--p3-border);color:var(--p3)}
+.tab-dot{width:8px;height:8px;border-radius:50%}
+.p1 .tab-dot{background:var(--p1)}
+.p2 .tab-dot{background:var(--p2)}
+.p3 .tab-dot{background:var(--p3)}
+
+/* ── PANEL ── */
+.panel{display:none;animation:up .35s ease both}
+.panel.active{display:block}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── PERSONA HEADER ── */
+.phead{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;padding:28px 32px;border-radius:16px;margin-bottom:28px;border:1px solid}
+.phead.p1{background:var(--p1-bg);border-color:var(--p1-border)}
+.phead.p2{background:var(--p2-bg);border-color:var(--p2-border)}
+.phead.p3{background:var(--p3-bg);border-color:var(--p3-border)}
+.phead-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:22px;font-weight:800;flex-shrink:0}
+.p1 .phead-avatar{background:rgba(0,201,167,.15);color:var(--p1)}
+.p2 .phead-avatar{background:rgba(124,108,252,.15);color:var(--p2)}
+.p3 .phead-avatar{background:rgba(244,128,74,.15);color:var(--p3)}
+.phead-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;margin-bottom:6px;text-transform:uppercase}
+.p1 .phead-tag{color:var(--p1)}
+.p2 .phead-tag{color:var(--p2)}
+.p3 .phead-tag{color:var(--p3)}
+.phead h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px}
+.phead-desc{font-size:13px;color:var(--muted);line-height:1.65;max-width:580px}
+.phead-time{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px}
+
+/* ── CONTENT GRID ── */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.cgrid.wide{grid-template-columns:1fr}
+.cgrid.three{grid-template-columns:1fr 1fr 1fr}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color .25s}
+.card:hover{border-color:rgba(255,255,255,.12)}
+.card-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card-tag::before{content:'';display:block;width:14px;height:1px}
+.p1 .card-tag{color:var(--p1)}
+.p1 .card-tag::before{background:var(--p1)}
+.p2 .card-tag{color:var(--p2)}
+.p2 .card-tag::before{background:var(--p2)}
+.p3 .card-tag{color:var(--p3)}
+.p3 .card-tag::before{background:var(--p3)}
+.card h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.3}
+.card p{font-size:13px;line-height:1.75;color:var(--muted)}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:8px}
+.card ul li{font-size:13px;color:var(--muted);display:flex;gap:9px;align-items:flex-start;line-height:1.6}
+.card ul li::before{content:'▸';flex-shrink:0;margin-top:1px}
+.p1 .card ul li::before{color:var(--p1)}
+.p2 .card ul li::before{color:var(--p2)}
+.p3 .card ul li::before{color:var(--p3)}
+
+/* ── HIGHLIGHT ── */
+.hlcard{border-radius:12px;padding:16px 20px;margin-bottom:10px;font-size:13px;line-height:1.7;border:1px solid}
+.p1 .hlcard{background:var(--p1-bg);border-color:var(--p1-border)}
+.p2 .hlcard{background:var(--p2-bg);border-color:var(--p2-border)}
+.p3 .hlcard{background:var(--p3-bg);border-color:var(--p3-border)}
+.hlcard strong{color:var(--text);display:block;font-size:12px;font-weight:600;margin-bottom:4px;font-family:'DM Mono',monospace;letter-spacing:.05em}
+
+/* ── GLOSARIO ── */
+.glos{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px}
+.glos-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;opacity:.5}
+.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gterm{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:13px 15px}
+.gterm-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px}
+.gterm-def{font-size:12px;color:var(--muted);line-height:1.6}
+.p1 .gterm-word{color:var(--p1)}
+.p2 .gterm-word{color:var(--p2)}
+.p3 .gterm-word{color:var(--p3)}
+
+/* ── GUION BOX ── */
+.script-box{background:var(--surface2);border-radius:12px;padding:18px 22px;margin-top:16px;border-left:3px solid}
+.p1 .script-box{border-color:var(--p1)}
+.p2 .script-box{border-color:var(--p2)}
+.p3 .script-box{border-color:var(--p3)}
+.script-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;opacity:.5}
+.script-text{font-size:13px;font-style:italic;color:var(--muted);line-height:1.8}
+
+/* ── FLOW BADGES ── */
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.fbadge{font-family:'DM Mono',monospace;font-size:11px;padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text)}
+.farrow{color:var(--muted);font-size:14px}
+
+/* ── TABLE ── */
+.ftable{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}
+.ftable th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;padding:9px 12px;border-bottom:1px solid var(--border);text-align:left}
+.p1 .ftable th{color:var(--p1)}
+.p2 .ftable th{color:var(--p2)}
+.p3 .ftable th{color:var(--p3)}
+.ftable td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--muted);vertical-align:top;line-height:1.5}
+.ftable tr:last-child td{border-bottom:none}
+.ftable td:first-child{color:var(--text);font-weight:500}
+
+/* ── METRIC STRIP ── */
+.mstrip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.mitem{padding:20px 22px;border-right:1px solid var(--border)}
+.mitem:last-child{border-right:none}
+.mico{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1;margin-bottom:4px}
+.mlab{font-size:12.5px;color:var(--muted);line-height:1.55}
+.mvar{font-family:'DM Mono',monospace;font-size:10px;margin-top:5px;opacity:.35;letter-spacing:.08em}
+.p3 .mico{color:var(--p3)}
+
+/* ── SECTION DIVIDER ── */
+.sdiv{border:none;border-top:1px solid var(--border);margin:24px 0}
+
+/* ── PROGRESS ── */
+.prog-bar{height:3px;border-radius:2px;margin-top:6px;overflow:hidden;background:var(--border)}
+.prog-fill{height:100%;border-radius:2px;transition:width .4s}
+.p1 .prog-fill{background:var(--p1)}
+.p2 .prog-fill{background:var(--p2)}
+.p3 .prog-fill{background:var(--p3)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .cgrid,.cgrid.three{grid-template-columns:1fr}
+  .glos-grid{grid-template-columns:1fr}
+  .mstrip{grid-template-columns:1fr}
+  .mitem{border-right:none;border-bottom:1px solid var(--border)}
+  .mitem:last-child{border-bottom:none}
+  .phead{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><span class="tab-dot" style="background:var(--p1)"></span>Guía de exposición — Proyecto de semestre</div>
+    <h1>Sistema de recomendación musical<br><span>inteligente</span> — División de roles</h1>
+    <p class="hero-sub">Esta guía divide la exposición en tres partes. Cada persona tiene su sección definida, con los conceptos clave explicados en lenguaje sencillo y las ideas principales para hablar.</p>
+    <div class="hero-info">
+      <span class="chip">PySpark · MLlib</span>
+      <span class="chip">K-Means · ALS</span>
+      <span class="chip">Filtrado híbrido</span>
+      <span class="chip">Spotify Dataset</span>
+      <span class="chip">~15 min total</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <nav class="tabs-nav">
+    <button class="tab-btn p1 active" onclick="show('p1',this)"><span class="tab-dot"></span>Persona 1 — El Problema</button>
+    <button class="tab-btn p2" onclick="show('p2',this)"><span class="tab-dot"></span>Persona 2 — Cómo funciona</button>
+    <button class="tab-btn p3" onclick="show('p3',this)"><span class="tab-dot"></span>Persona 3 — El motor y la evaluación</button>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       PANEL 1 — El problema y la justificación
+  ══════════════════════════════════════ -->
+  <div class="panel p1 active" id="panel-p1">
+
+    <div class="phead p1">
+      <div class="phead-avatar">1</div>
+      <div>
+        <div class="phead-tag">Persona 1 — Apertura</div>
+        <h2>El problema: ¿por qué los sistemas actuales no bastan?</h2>
+        <p class="phead-desc">Presentás el contexto, explicás por qué este proyecto existe y cuál es el objetivo. Es la parte más narrativa: no necesitás saber código, sino entender el <em>por qué</em>.</p>
+        <div class="phead-time">⏱ ~5 minutos estimados</div>
+      </div>
+    </div>
+
+    <!-- SCOPE -->
+    <div class="cgrid">
+      <div class="card p1">
+        <div class="card-tag">Tu sección en la presentación</div>
+        <h3>¿Qué tocás vos?</h3>
+        <ul>
+          <li>Las 3 tarjetas del <strong style="color:var(--text)">"Problema raíz"</strong> (perfil estático, señales implícitas, cold start)</li>
+          <li>La tarjeta de <strong style="color:var(--text)">"Objetivo general"</strong></li>
+          <li>La sección de <strong style="color:var(--text)">"Justificación académica"</strong> con los 4 autores</li>
+        </ul>
+      </div>
+      <div class="card p1">
+        <div class="card-tag">Idea central</div>
+        <h3>En una frase</h3>
+        <p>Los sistemas de recomendación actuales nos muestran siempre lo mismo porque solo miran el historial fijo y no escuchan cómo cambia nuestro gusto según el momento. Este proyecto diseña uno que sí lo hace.</p>
+        <div class="prog-bar" style="margin-top:14px"><div class="prog-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- PROBLEMAS EXPLICADOS SENCILLO -->
+    <div class="cgrid three">
+      <div class="card p1">
+        <div class="card-tag">Problema 01</div>
+        <h3>Perfil estático vs. gusto dinámico</h3>
+        <p>El sistema te conoce de hace 6 meses. Pero hoy es lunes a las 7 AM y querés algo enérgico para ir al gimnasio. La plataforma igual te pone boleros. <br><br>El problema: el modelo no sabe que tu gusto cambia con el <strong style="color:var(--text)">contexto</strong>.</p>
+      </div>
+      <div class="card p1">
+        <div class="card-tag">Problema 02</div>
+        <h3>Señales implícitas sin explotar</h3>
+        <p>Cada vez que saltás una canción a los 10 segundos estás diciendo "no me gusta". Cada vez que la escuchás tres veces seguidas estás diciendo "me encanta".<br><br>Los sistemas actuales tiran esa información por el volumen que genera.</p>
+      </div>
+      <div class="card p1">
+        <div class="card-tag">Problema 03</div>
+        <h3>Cold start — el usuario nuevo</h3>
+        <p>Un usuario que se registra hoy no tiene historial. El sistema no sabe nada de él y no puede recomendar nada útil.<br><br>Solución propuesta: arrancar desde las <strong style="color:var(--text)">características de la canción</strong> en lugar del historial.</p>
+      </div>
+    </div>
+
+    <hr class="sdiv">
+
+    <!-- JUSTIFICACIÓN ACADÉMICA SIMPLIFICADA -->
+    <div class="card p1" style="margin-bottom:16px">
+      <div class="card-tag">Justificación académica — qué dicen los autores</div>
+      <h3>¿Por qué cuatro papers respaldan esto?</h3>
+      <p style="margin-bottom:14px">Cuando presentás la sección de referencias, explicá para qué sirve cada una. No hace falta memorizarlas: simplemente decís qué problema resuelve cada autor.</p>
+      <table class="ftable">
+        <tr><th>Referencia</th><th>Lo que demostraron</th><th>Para qué nos sirve</th></tr>
+        <tr>
+          <td>Schedl et al.</td>
+          <td>Los sistemas fallan cuando ignoran el estado emocional y el contexto del oyente (hora, lugar, actividad)</td>
+          <td>Justifica que nuestro problema raíz es real y documentado</td>
+        </tr>
+        <tr>
+          <td>Dong (2023)</td>
+          <td>Los modelos híbridos superan en precisión a los que usan solo un enfoque</td>
+          <td>Justifica que usar dos métodos combinados es mejor que uno solo</td>
+        </tr>
+        <tr>
+          <td>Bahadure et al.</td>
+          <td>Las características acústicas de Spotify (energía, tempo, positividad) predicen géneros con 90% de exactitud</td>
+          <td>Muestra que los datos de la canción son útiles para recomendar</td>
+        </tr>
+        <tr>
+          <td>Jain et al. (2024)</td>
+          <td>PySpark con K-Means funciona para recomendación musical a gran escala</td>
+          <td>Valida la tecnología que elegimos usar en este proyecto</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- GUION -->
+    <div class="script-box p1">
+      <div class="script-label">Guión sugerido para arrancar</div>
+      <p class="script-text">"Todos usamos Spotify, YouTube Music o alguna plataforma musical. ¿Les ha pasado que el sistema les recomienda lo mismo siempre, aunque a veces quieren algo completamente diferente? Eso pasa porque estos sistemas no saben nada del contexto: qué hora es, qué están haciendo, cómo se sienten. Nuestro proyecto diseña una arquitectura que sí tiene en cuenta eso — usando datos de comportamiento en tiempo real y características de las canciones mismas..."</p>
+    </div>
+
+    <!-- GLOSARIO -->
+    <hr class="sdiv">
+    <div class="glos p1">
+      <div class="glos-title">Glosario — términos que van a aparecer y cómo explicarlos</div>
+      <div class="glos-grid">
+        <div class="gterm">
+          <div class="gterm-word">Sistema de recomendación</div>
+          <div class="gterm-def">Algoritmo que predice qué le va a gustar a un usuario basándose en datos previos. Netflix, Spotify y Amazon lo usan.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Cold start</div>
+          <div class="gterm-def">El "problema del usuario nuevo": si no hay historial, el sistema no sabe qué recomendar. Es uno de los retos más conocidos del área.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Señales implícitas</div>
+          <div class="gterm-def">Acciones que el usuario no hace conscientemente para opinar, pero que revelan preferencias: saltarse una canción, escucharla entera, pausarla.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Features acústicas</div>
+          <div class="gterm-def">Características medibles de una canción: qué tan rápida es (BPM), qué tan energética, qué tan "alegre" suena, si tiene instrumentos acústicos, etc.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Modelo híbrido</div>
+          <div class="gterm-def">Sistema que combina dos métodos de recomendación: uno basado en usuarios similares y otro basado en las características de las canciones.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Pipeline</div>
+          <div class="gterm-def">Secuencia de pasos encadenados donde la salida de uno es la entrada del siguiente. Como una línea de producción en una fábrica.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel p1 -->
+
+
+  <!-- ══════════════════════════════════════
+       PANEL 2 — Arquitectura y pipeline de datos
+  ══════════════════════════════════════ -->
+  <div class="panel p2" id="panel-p2">
+
+    <div class="phead p2">
+      <div class="phead-avatar">2</div>
+      <div>
+        <div class="phead-tag">Persona 2 — Desarrollo técnico</div>
+        <h2>Cómo funciona: el pipeline de datos y el perfilado</h2>
+        <p class="phead-desc">Explicás cómo el sistema recibe datos, los procesa y construye un perfil de cada oyente. Presentás las Fases I, II y III del pipeline y el stack tecnológico.</p>
+        <div class="phead-time">⏱ ~5 minutos estimados</div>
+      </div>
+    </div>
+
+    <!-- SCOPE -->
+    <div class="cgrid">
+      <div class="card p2">
+        <div class="card-tag">Tu sección en la presentación</div>
+        <h3>¿Qué tocás vos?</h3>
+        <ul>
+          <li>La tarjeta de <strong style="color:var(--text)">"Arquitectura técnica"</strong> (stack tecnológico)</li>
+          <li>El <strong style="color:var(--text)">pipeline de 5 fases</strong> — presentás las primeras tres (I, II, III)</li>
+          <li>Los modales desplegables de cada fase si los abren para mostrar el detalle</li>
+        </ul>
+      </div>
+      <div class="card p2">
+        <div class="card-tag">Idea central</div>
+        <h3>En una frase</h3>
+        <p>El sistema captura cada interacción del usuario, la enriquece con los datos de la canción y construye un vector matemático que representa el "sabor musical" de ese oyente. Luego agrupa oyentes similares.</p>
+        <div class="prog-bar" style="margin-top:14px"><div class="prog-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- STACK TECNOLÓGICO -->
+    <div class="card p2" style="margin-bottom:16px">
+      <div class="card-tag">Stack tecnológico — por qué estas herramientas</div>
+      <h3>Tres componentes clave</h3>
+      <div class="cgrid three" style="margin-top:14px">
+        <div class="hlcard p2">
+          <strong>PySpark + MLlib</strong>
+          Motor de procesamiento distribuido. Permite procesar millones de canciones y usuarios al mismo tiempo, como si tuvieras cientos de computadoras trabajando juntas.
+        </div>
+        <div class="hlcard p2">
+          <strong>HDFS / Parquet</strong>
+          Sistema de almacenamiento distribuido y formato de archivo comprimido. Guarda los datos en muchos servidores a la vez y los comprime hasta 8 veces para que ocupen menos.
+        </div>
+        <div class="hlcard p2">
+          <strong>Spotify Dataset (Kaggle)</strong>
+          Dataset público con 114,000 canciones y sus características acústicas ya calculadas. Es el insumo de datos para todo el sistema.
+        </div>
+      </div>
+    </div>
+
+    <hr class="sdiv">
+
+    <!-- FASES I, II, III -->
+    <div class="card p2" style="margin-bottom:16px">
+      <div class="card-tag">Fase I — Modelado de señales de entrada</div>
+      <h3>¿Qué datos captura el sistema?</h3>
+      <p style="margin-bottom:14px">Antes de procesar nada, el sistema necesita saber <em>qué le está diciendo</em> el usuario con cada acción. No todas las acciones tienen el mismo peso.</p>
+      <div class="cgrid">
+        <div>
+          <div class="hlcard p2">
+            <strong>Señales explícitas (el usuario sabe que opina)</strong>
+            Guardar una canción, agregarla a una playlist, seguir un artista. Son pocas pero de alta confianza.
+          </div>
+          <div class="hlcard p2">
+            <strong>Señales implícitas (el usuario no sabe que opina)</strong>
+            Saltar una canción a los 10 segundos = "no me gusta". Escucharla completa tres veces = "me encanta". Son muchas y muy valiosas.
+          </div>
+        </div>
+        <div>
+          <div class="hlcard p2">
+            <strong>Señales de contexto (el cuándo y el dónde)</strong>
+            Hora del día, día de la semana, tipo de dispositivo, geolocalización aproximada. Permiten saber si el usuario está en el gym, trabajando o relajándose.
+          </div>
+          <div class="hlcard p2">
+            <strong>Formato de registro</strong>
+            Cada interacción se guarda como: usuario, canción, tipo de evento, cuándo ocurrió, desde qué dispositivo, cuánto duró.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p2" style="margin-bottom:16px">
+      <div class="card-tag">Fase II — Ingesta y enriquecimiento acústico</div>
+      <h3>¿Cómo se procesan y enriquecen los datos?</h3>
+      <div class="flow">
+        <span class="fbadge">Logs de usuario (JSON)</span>
+        <span class="farrow">→</span>
+        <span class="fbadge">HDFS / Parquet</span>
+        <span class="farrow">→</span>
+        <span class="fbadge">PySpark JOIN</span>
+        <span class="farrow">→</span>
+        <span class="fbadge">Dataset enriquecido</span>
+      </div>
+      <p style="margin-top:14px;margin-bottom:14px">El "enriquecimiento" consiste en cruzar los eventos del usuario con los datos de cada canción. El resultado es una fila que combina: <em>qué hizo el usuario + cómo suena esa canción</em>.</p>
+      <table class="ftable">
+        <tr><th>Feature acústica</th><th>Qué mide</th><th>Escala</th></tr>
+        <tr><td>Energy</td><td>Qué tan intensa y activa se siente la canción</td><td>0 (tranquila) a 1 (explosiva)</td></tr>
+        <tr><td>Valence</td><td>Qué tan positiva o alegre suena</td><td>0 (melancólica) a 1 (eufórica)</td></tr>
+        <tr><td>Danceability</td><td>Qué tan buena es para bailar</td><td>0 a 1</td></tr>
+        <tr><td>Tempo / BPM</td><td>Velocidad de la canción</td><td>40 a 210 golpes por minuto</td></tr>
+        <tr><td>Acousticness</td><td>Si usa instrumentos reales o electrónicos</td><td>0 (electrónica) a 1 (acústica)</td></tr>
+        <tr><td>Instrumentalness</td><td>Si tiene voz o no</td><td>0 (con letra) a 1 (solo instrumentos)</td></tr>
+      </table>
+    </div>
+
+    <div class="card p2" style="margin-bottom:16px">
+      <div class="card-tag">Fase III — Perfilado de usuario con K-Means</div>
+      <h3>¿Cómo agrupa el sistema a los oyentes?</h3>
+      <div class="cgrid">
+        <div>
+          <p style="margin-bottom:12px">Con los datos enriquecidos, el sistema calcula un <strong style="color:var(--text)">"vector de perfil"</strong> para cada usuario: el promedio de las características de las canciones que escuchó completas, con penalización por las que saltó.</p>
+          <div class="hlcard p2">
+            <strong>¿Qué es K-Means?</strong>
+            Un algoritmo que agrupa puntos parecidos en K grupos. Aquí: agrupa usuarios con gustos similares. Si dos usuarios tienen vectores de perfil parecidos, van al mismo cluster.
+          </div>
+        </div>
+        <div>
+          <div class="hlcard p2" style="margin-bottom:10px">
+            <strong>⚡ Cluster 1 — Oyente energético</strong>
+            Alta energía, alto BPM, alta bailabilidad. Probablemente escucha en momentos de ejercicio o desplazamiento.
+          </div>
+          <div class="hlcard p2" style="margin-bottom:10px">
+            <strong>🌙 Cluster 2 — Oyente contemplativo</strong>
+            Baja energía, alta acusticidad, alta instrumentalidad. Noche, estudio o relajación.
+          </div>
+          <div class="hlcard p2">
+            <strong>🎷 Cluster 3 — Oyente de nicho</strong>
+            Mezcla de features, escucha concentrada en fines de semana. Alta instrumentalidad.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUION -->
+    <div class="script-box p2">
+      <div class="script-label">Guión sugerido para tu parte</div>
+      <p class="script-text">"Una vez que entendemos por qué el problema existe, vamos a ver cómo el sistema lo ataca. Todo empieza por los datos. Cada vez que escuchamos música estamos generando información: cuándo pusimos play, cuándo saltamos la canción, desde qué dispositivo. El sistema captura todo eso, lo combina con las características musicales de cada canción — qué tan energética es, qué tan alegre suena — y construye un 'retrato musical' de cada oyente. Después agrupa oyentes parecidos usando un algoritmo llamado K-Means, que es básicamente como organizar personas en grupos según sus preferencias..."</p>
+    </div>
+
+    <!-- GLOSARIO -->
+    <hr class="sdiv">
+    <div class="glos p2">
+      <div class="glos-title">Glosario — términos técnicos para tu sección</div>
+      <div class="glos-grid">
+        <div class="gterm">
+          <div class="gterm-word">K-Means Clustering</div>
+          <div class="gterm-def">Algoritmo que divide un conjunto de datos en K grupos (clusters). Pone en el mismo grupo los puntos que son más parecidos entre sí. En este caso, agrupa oyentes con gustos similares.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Vector de perfil</div>
+          <div class="gterm-def">Representación matemática del gusto musical de una persona como una lista de números. Ejemplo: [BPM:0.8, Energy:0.9, Valence:0.7...]. Permite compararlos matemáticamente.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">PySpark</div>
+          <div class="gterm-def">Herramienta de programación que permite procesar enormes volúmenes de datos distribuyendo el trabajo entre muchos procesadores a la vez. Como dividir una tarea entre muchas personas.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">HDFS / Parquet</div>
+          <div class="gterm-def">HDFS es un sistema de archivos distribuido (como un disco duro compartido en la nube). Parquet es un formato de archivo muy comprimido y eficiente para análisis de datos masivos.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Método del codo</div>
+          <div class="gterm-def">Técnica gráfica para elegir cuántos clusters (K) usar en K-Means. Se busca el punto donde agregar más clusters deja de mejorar significativamente los resultados: el "codo" de la curva.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Enriquecimiento acústico</div>
+          <div class="gterm-def">Proceso de unir los datos de comportamiento del usuario (qué hizo) con las características musicales de cada canción (cómo suena). El resultado es mucho más informativo que cada fuente por separado.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel p2 -->
+
+
+  <!-- ══════════════════════════════════════
+       PANEL 3 — Motor híbrido y evaluación
+  ══════════════════════════════════════ -->
+  <div class="panel p3" id="panel-p3">
+
+    <div class="phead p3">
+      <div class="phead-avatar">3</div>
+      <div>
+        <div class="phead-tag">Persona 3 — Cierre técnico y evaluación</div>
+        <h2>El motor de recomendación y cómo sabemos si funciona</h2>
+        <p class="phead-desc">Explicás cómo el sistema finalmente genera las recomendaciones (Fase IV — modelo híbrido ALS + contenido) y cómo mediríamos si son buenas (Fase V — métricas de evaluación). Es el cierre de la exposición.</p>
+        <div class="phead-time">⏱ ~5 minutos estimados</div>
+      </div>
+    </div>
+
+    <!-- SCOPE -->
+    <div class="cgrid">
+      <div class="card p3">
+        <div class="card-tag">Tu sección en la presentación</div>
+        <h3>¿Qué tocás vos?</h3>
+        <ul>
+          <li>La tarjeta <strong style="color:var(--text)">"Modelo híbrido"</strong> con los tags de filtrado</li>
+          <li>Las <strong style="color:var(--text)">tres métricas</strong> del strip inferior (Skip Rate, Tasa de guardado, Precision@K)</li>
+          <li>El modal de <strong style="color:var(--text)">Fase IV</strong> (motor ALS + contenido) y <strong style="color:var(--text)">Fase V</strong> (evaluación) si los abren</li>
+          <li>El <strong style="color:var(--text)">footer de referencias</strong> para hacer el cierre</li>
+        </ul>
+      </div>
+      <div class="card p3">
+        <div class="card-tag">Idea central</div>
+        <h3>En una frase</h3>
+        <p>El motor combina dos estrategias según cuánto sabe de vos: si tenés historial, te compara con usuarios similares; si sos nuevo, analiza directamente las canciones que conocés. Y lo medimos viendo si saltás menos canciones.</p>
+        <div class="prog-bar" style="margin-top:14px"><div class="prog-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- FASE IV -->
+    <div class="card p3" style="margin-bottom:16px">
+      <div class="card-tag">Fase IV — El motor híbrido</div>
+      <h3>¿Cómo decide el sistema qué recomendarte?</h3>
+      <p style="margin-bottom:16px">El motor usa <strong style="color:var(--text)">dos enfoques al mismo tiempo</strong> y los combina según cuántos datos tiene del usuario. Esto resuelve el problema del cold start (usuarios nuevos) sin sacrificar la calidad para usuarios con historial.</p>
+      <div class="cgrid">
+        <div class="hlcard p3" style="border-color:rgba(0,201,167,.3);background:rgba(0,201,167,.06)">
+          <strong style="color:var(--p1)">Filtrado colaborativo — ALS</strong>
+          <span style="color:var(--muted);font-size:13px">"Usuarios que escucharon lo mismo que vos también les gustó X".<br><br>Usa un algoritmo llamado <strong style="color:var(--text)">ALS (Alternating Least Squares)</strong> que descompone una matriz enorme (usuarios × canciones) en patrones latentes. No mira el contenido de la canción: solo el comportamiento de oyentes parecidos.<br><br>Requiere historial suficiente para funcionar bien.</span>
+        </div>
+        <div class="hlcard p3">
+          <strong>Filtrado por contenido</strong>
+          <span style="color:var(--muted);font-size:13px">"Esta canción suena parecida a las que te gustaron".<br><br>Compara el vector acústico de canciones que le gustaron al usuario con todo el catálogo usando <strong style="color:var(--text)">similitud coseno</strong> (qué tan parecidos son dos vectores matemáticamente).<br><br>Funciona incluso sin historial: solo necesita una canción de referencia.</span>
+        </div>
+      </div>
+      <div class="card p3" style="margin-top:14px;border-color:var(--p3-border);background:var(--p3-bg)">
+        <div class="card-tag">Lógica de mezcla según el historial</div>
+        <table class="ftable">
+          <tr><th>Historial del usuario</th><th>Estrategia</th><th>Peso colaborativo / contenido</th></tr>
+          <tr><td>Más de 50 canciones</td><td>ALS dominante</td><td>80% / 20%</td></tr>
+          <tr><td>10 a 50 canciones</td><td>Modelo mixto balanceado</td><td>50% / 50%</td></tr>
+          <tr><td>Menos de 10 canciones</td><td>Contenido dominante</td><td>20% / 80%</td></tr>
+          <tr><td>0 canciones (usuario nuevo)</td><td>Solo contenido + popularidad global</td><td>0% / 100%</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <hr class="sdiv">
+
+    <!-- FASE V — MÉTRICAS -->
+    <div class="card p3" style="margin-bottom:16px">
+      <div class="card-tag">Fase V — Evaluación: ¿cómo sabemos si funciona?</div>
+      <h3>Las métricas que mediríamos</h3>
+      <p style="margin-bottom:16px">Como es una propuesta teórica, no ejecutamos la evaluación, pero la <strong style="color:var(--text)">diseñamos rigurosamente</strong>. Eso es lo que diferencia un proyecto serio de una especulación. Estas son las tres métricas clave:</p>
+    </div>
+
+    <div class="mstrip p3" style="margin-bottom:16px">
+      <div class="mitem">
+        <div class="mico">↓ Skip</div>
+        <div class="mlab">Porcentaje de canciones saltadas antes de los 30 segundos. Un buen sistema produce menos skips. <strong style="color:var(--text)">KPI primario.</strong></div>
+        <div class="mvar">SKIP RATE — KPI PRIMARIO</div>
+      </div>
+      <div class="mitem">
+        <div class="mico">↑ Save</div>
+        <div class="mlab">Canciones recomendadas que el usuario guarda en su biblioteca. Indica que la recomendación tiene valor a largo plazo. <strong style="color:var(--text)">KPI de engagement.</strong></div>
+        <div class="mvar">TASA DE GUARDADO — KPI ENGAGEMENT</div>
+      </div>
+      <div class="mitem">
+        <div class="mico">P@K</div>
+        <div class="mlab">De las primeras K recomendaciones, ¿cuántas son realmente relevantes para el usuario? Métrica estándar en recuperación de información. <strong style="color:var(--text)">KPI de calidad.</strong></div>
+        <div class="mvar">PRECISION@K — KPI CALIDAD</div>
+      </div>
+    </div>
+
+    <div class="cgrid">
+      <div class="card p3">
+        <div class="card-tag">Datasets para validar</div>
+        <h3>¿Con qué datos se evaluaría?</h3>
+        <ul>
+          <li><strong style="color:var(--text)">Spotify Million Playlist Dataset</strong> — 1 millón de playlists públicas. Permite comparar las recomendaciones contra playlists reales como "respuesta correcta".</li>
+          <li><strong style="color:var(--text)">Free Music Archive (FMA)</strong> — dataset abierto con features acústicas pre-calculadas. Ideal para la rama de filtrado por contenido.</li>
+        </ul>
+      </div>
+      <div class="card p3">
+        <div class="card-tag">Protocolo de evaluación A/B</div>
+        <h3>¿Cómo se compararía?</h3>
+        <p>Se divide el dataset en dos grupos:</p>
+        <ul style="margin-top:8px">
+          <li><strong style="color:var(--text)">Control:</strong> recomendación por popularidad global (el enfoque más simple)</li>
+          <li><strong style="color:var(--text)">Experimental:</strong> motor híbrido diseñado en este proyecto</li>
+        </ul>
+        <p style="margin-top:10px">El éxito se define como: <strong style="color:var(--text)">menos skips y más Precision@K</strong> en el grupo experimental.</p>
+      </div>
+    </div>
+
+    <!-- GUION -->
+    <div class="script-box p3">
+      <div class="script-label">Guión sugerido para cerrar</div>
+      <p class="script-text">"Hasta acá entendimos el problema y cómo se procesan los datos. Ahora viene la parte donde el sistema realmente hace las recomendaciones. La clave es que no usa un solo método, sino dos: uno que dice 'a usuarios parecidos a vos les gustó esto' y otro que dice 'esta canción suena parecida a las que te gustaron'. Cuánto peso le da a cada uno depende de cuánto sabe de vos. Si sos usuario nuevo, confía más en la música. Si tenés historial largo, confía en la comparación con otras personas. Y para saber si funciona, medimos cuántas canciones saltás: si saltás menos, el sistema está recomendando mejor..."</p>
+    </div>
+
+    <!-- GLOSARIO -->
+    <hr class="sdiv">
+    <div class="glos p3">
+      <div class="glos-title">Glosario — términos técnicos para tu sección</div>
+      <div class="glos-grid">
+        <div class="gterm">
+          <div class="gterm-word">ALS — Alternating Least Squares</div>
+          <div class="gterm-def">Algoritmo que descompone una tabla enorme (usuarios × canciones) en dos tablas más pequeñas de "factores latentes". Permite encontrar patrones ocultos de gusto sin leer las canciones.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Filtrado colaborativo</div>
+          <div class="gterm-def">Recomienda en base a lo que hicieron usuarios similares. "A tus vecinos musicales les gustó esto, entonces probablemente a vos también." No mira el contenido de la canción.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Filtrado por contenido</div>
+          <div class="gterm-def">Recomienda canciones con características similares a las que ya te gustaron. "Esta canción tiene el mismo ritmo y energía que tus favoritas." No necesita historial.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Similitud coseno</div>
+          <div class="gterm-def">Medida matemática que calcula qué tan parecidos son dos vectores (listas de números). Si dos canciones tienen vectores similares, suenan parecido. Va de 0 (opuestos) a 1 (idénticos).</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Precision@K</div>
+          <div class="gterm-def">De las primeras K recomendaciones que el sistema muestra, ¿cuántas son relevantes? Si K=10 y 7 son buenas, Precision@10 = 0.7. Métrica estándar en sistemas de búsqueda y recomendación.</div>
+        </div>
+        <div class="gterm">
+          <div class="gterm-word">Skip Rate</div>
+          <div class="gterm-def">Porcentaje de canciones que el usuario salta antes de los 30 segundos. Un skip temprano indica que la recomendación fue mala. Reducirlo es el objetivo principal del sistema.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel p3 -->
+
+</div><!-- /wrap -->
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

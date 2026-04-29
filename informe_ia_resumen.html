@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De lo Transaccional a lo Transformacional</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --rust: #c0392b;
+    --sage: #4a6741;
+    --slate: #2c3e50;
+    --muted: #8a7f72;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  /* Header */
+  header {
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--gold);
+    padding: 48px 0 40px;
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold-light);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    font-weight: 700;
+    color: var(--ink);
+    max-width: 620px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .subtitle {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 480px;
+  }
+
+  .stat-banner {
+    margin-top: 36px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 20px 28px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 16px;
+    border-left: 4px solid var(--gold);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    max-width: 280px;
+    color: #ccc;
+  }
+
+  /* Pilares table */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-title::before {
+    content: '';
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .pilares-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1px solid #d5ccbf;
+    margin-bottom: 72px;
+  }
+
+  .pilar-row {
+    display: grid;
+    grid-template-columns: 140px 160px 1fr;
+    border-bottom: 1px solid #d5ccbf;
+    transition: background 0.2s;
+  }
+  .pilar-row:last-child { border-bottom: none; }
+  .pilar-row:hover { background: #eee9df; }
+
+  .pilar-cell {
+    padding: 18px 22px;
+    font-size: 0.9rem;
+    border-right: 1px solid #d5ccbf;
+    display: flex;
+    align-items: center;
+  }
+  .pilar-cell:last-child { border-right: none; }
+
+  .pilar-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .pilar-verb {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .pilar-desc {
+    color: #4a4540;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 140px 160px 1fr;
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .th-cell {
+    padding: 12px 22px;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-right: 1px solid #333;
+  }
+  .th-cell:last-child { border-right: none; }
+
+  /* Pillars detail */
+  .pilares-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 72px;
+  }
+
+  @media (max-width: 620px) {
+    .pilares-detail { grid-template-columns: 1fr; }
+    .pilar-row { grid-template-columns: 1fr; }
+    .table-header { display: none; }
+    .pilar-cell { border-right: none; border-bottom: 1px solid #d5ccbf; }
+    .pilar-cell:last-child { border-bottom: none; }
+    h1 { font-size: 2rem; }
+    .stat-banner { flex-direction: column; }
+    .page { padding: 40px 20px; }
+  }
+
+  .card {
+    border: 1px solid #d5ccbf;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+
+  .card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .card-pilar {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+    color: #4a4540;
+    line-height: 1.6;
+  }
+
+  .tip {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: #eee9df;
+    border-left: 3px solid var(--gold);
+    font-size: 0.8rem;
+    color: var(--slate);
+    font-style: italic;
+  }
+
+  /* Quote */
+  .blockquote {
+    margin: 64px 0;
+    padding: 40px 48px;
+    border: 1px solid var(--gold-light);
+    background: linear-gradient(135deg, #faf7f0 0%, #f5f0e8 100%);
+    position: relative;
+    text-align: center;
+  }
+
+  .blockquote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: var(--gold-light);
+    position: absolute;
+    top: -20px;
+    left: 24px;
+    line-height: 1;
+  }
+
+  .blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Governance questions */
+  .gov-questions {
+    margin: 16px 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .gov-q {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--cream);
+    border: 1px solid #d5ccbf;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .gov-icon {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .blockquote-small {
+    margin-bottom: 24px;
+    padding: 28px 48px;
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  .blockquote-small::before { color: #333; }
+  .blockquote-small p { color: var(--cream); font-size: clamp(1rem, 2vw, 1.25rem); }
+  .blockquote-small p em { color: var(--gold); font-style: italic; }
+
+  /* Resources */
+  .resources {
+    margin-bottom: 64px;
+  }
+
+  .resource-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 540px) {
+    .resource-list { grid-template-columns: 1fr; }
+  }
+
+  .resource-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #d5ccbf;
+    font-size: 0.82rem;
+  }
+
+  .resource-arrow {
+    color: var(--gold);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .resource-name {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .resource-desc {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid #d5ccbf;
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  header, .pilares-grid, .pilares-detail, .blockquote, .resources {
+    animation: fadeUp 0.6s ease both;
+  }
+  .pilares-grid { animation-delay: 0.1s; }
+  .pilares-detail { animation-delay: 0.2s; }
+  .blockquote { animation-delay: 0.3s; }
+  .resources { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="label">Síntesis ejecutiva <span style="color:var(--gold)">·</span> Abril 2025</div>
+    <h1>De lo <em>Transaccional</em><br>a lo Transformacional</h1>
+    <p class="subtitle">La IA como palanca de cambio organizacional — cinco pilares para cerrar la brecha entre usar IA y transformarse gracias a ella.</p>
+    <div class="stat-banner">
+      <div class="stat-number">88%</div>
+      <div class="stat-text">de las organizaciones dice usar IA, pero <strong>solo 1 de cada 3</strong> ha logrado escalarla.</div>
+    </div>
+  </header>
+
+  <div class="section-title">Los 5 Pilares del Modelo</div>
+
+  <div class="pilares-grid">
+    <div class="table-header">
+      <div class="th-cell">Pilar</div>
+      <div class="th-cell">Verbo</div>
+      <div class="th-cell">Principio clave</div>
+    </div>
+    <div class="pilar-row">
+      <div class="pilar-cell"><span class="pilar-name">Conciencia</span></div>
+      <div class="pilar-cell"><span class="pilar-verb">Entender</span></div>
+      <div class="pilar-cell pilar-desc">Primero cambia la mentalidad, luego la herramienta.</div>
+    </div>
+    <div class="pilar-row">
+      <div class="pilar-cell"><span class="pilar-name">Cambio</span></div>
+      <div class="pilar-cell"><span class="pilar-verb">Transformar</span></div>
+      <div class="pilar-cell pilar-desc">La productividad viene del rediseño, no del asombro.</div>
+    </div>
+    <div class="pilar-row">
+      <div class="pilar-cell"><span class="pilar-name">Criterio</span></div>
+      <div class="pilar-cell"><span class="pilar-verb">Decidir</span></div>
+      <div class="pilar-cell pilar-desc">La IA produce respuestas; el criterio produce decisiones.</div>
+    </div>
+    <div class="pilar-row">
+      <div class="pilar-cell"><span class="pilar-name">Control</span></div>
+      <div class="pilar-cell"><span class="pilar-verb">Gobernar</span></div>
+      <div class="pilar-cell pilar-desc">Sin reglas claras, la IA no escala.</div>
+    </div>
+    <div class="pilar-row">
+      <div class="pilar-cell"><span class="pilar-name">Crecimiento</span></div>
+      <div class="pilar-cell"><span class="pilar-verb">Evolucionar</span></div>
+      <div class="pilar-cell pilar-desc">El mercado no espera tu curva de aprendizaje.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Detalle de cada pilar</div>
+
+  <div class="pilares-detail">
+
+    <div class="card" data-num="1">
+      <div class="card-pilar">Pilar 1 · Entender</div>
+      <h3>Conciencia</h3>
+      <p>Adoptar IA sin cambiar la mentalidad es como instalar un motor de avión en una carreta. El punto de partida es preguntarse <strong>qué se quiere transformar y por qué</strong>, antes de elegir la herramienta.</p>
+      <div class="tip">✦ Usa Claude para resumir y sintetizar — primer paso concreto sin fricciones.</div>
+    </div>
+
+    <div class="card" data-num="2">
+      <div class="card-pilar">Pilar 2 · Transformar</div>
+      <h3>Cambio</h3>
+      <p>El efecto <em>wow</em> es seductor pero engañoso. Las organizaciones que integran IA directamente en sus procesos <strong>duplican los beneficios</strong> respecto a quienes la usan como capa adicional.</p>
+      <div class="tip">McKinsey, 2024 — Rediseña procesos, no solo automatices tareas.</div>
+    </div>
+
+    <div class="card" data-num="3">
+      <div class="card-pilar">Pilar 3 · Decidir</div>
+      <h3>Criterio</h3>
+      <p>La ventaja competitiva se desplaza hacia quienes <strong>deciden mejor</strong>. Pide a la IA escenarios optimista, conservador y adverso — luego el líder elige con su contexto, su ética y su visión.</p>
+      <div class="tip">Cuando producir es fácil, decidir bien es diferencial.</div>
+    </div>
+
+    <div class="card" data-num="4">
+      <div class="card-pilar">Pilar 4 · Gobernar</div>
+      <h3>Control</h3>
+      <p>Institucionaliza el uso respondiendo <strong>tres preguntas mínimas</strong> de gobernanza:</p>
+      <div class="gov-questions">
+        <div class="gov-q">
+          <span class="gov-icon">①</span>
+          <span>¿Qué puede <strong>decidir la IA sola</strong>?</span>
+        </div>
+        <div class="gov-q">
+          <span class="gov-icon">②</span>
+          <span>¿Qué requiere <strong>validación humana obligatoria</strong>?</span>
+        </div>
+        <div class="gov-q">
+          <span class="gov-icon">③</span>
+          <span>¿Qué está <strong>prohibido delegar</strong>?</span>
+        </div>
+      </div>
+      <div class="tip">El 70% de los directivos identifica la falta de capacitación como el principal obstáculo — KPMG, 2025. La AI Act (UE) como referencia para políticas internas.</div>
+    </div>
+
+    <div class="card" data-num="5" style="grid-column: 1 / -1;">
+      <div class="card-pilar">Pilar 5 · Evolucionar</div>
+      <h3>Crecimiento</h3>
+      <p>El 49% de los líderes tecnológicos ya tiene la IA integrada en su estrategia comercial. Las <strong>pequeñas empresas tienen ventaja</strong>: pueden adoptar y pivotar en semanas donde las grandes tardan meses. Elige 1 IA como tu LLM principal — la profundidad supera a la amplitud.</p>
+    </div>
+
+  </div>
+
+  <div class="blockquote blockquote-small">
+    <p>«Cuando producir es fácil,<br>decidir bien es <em>diferencial</em>.»</p>
+  </div>
+
+  <div class="blockquote">
+    <p>«La IA es la palanca, pero la organización — sus líderes, su cultura y sus procesos — es el punto de apoyo.»</p>
+  </div>
+
+  <div class="resources">
+    <div class="section-title">Recursos recomendados</div>
+    <ul class="resource-list">
+      <li class="resource-item">
+        <span class="resource-arrow">→</span>
+        <div>
+          <span class="resource-name">LinkedIn «Busco experto»</span>
+          <span class="resource-desc">Colección de IAs especializadas por dominio.</span>
+        </div>
+      </li>
+      <li class="resource-item">
+        <span class="resource-arrow">→</span>
+        <div>
+          <span class="resource-name">NotebookLM (Google)</span>
+          <span class="resource-desc">Síntesis de documentos y aprendizaje acelerado.</span>
+        </div>
+      </li>
+      <li class="resource-item">
+        <span class="resource-arrow">→</span>
+        <div>
+          <span class="resource-name">Claude (Anthropic)</span>
+          <span class="resource-desc">LLM conversacional recomendado como agente principal.</span>
+        </div>
+      </li>
+      <li class="resource-item">
+        <span class="resource-arrow">→</span>
+        <div>
+          <span class="resource-name">McKinsey — El estado de la IA 2025</span>
+          <span class="resource-desc">Informe de referencia global sobre adopción de IA.</span>
+        </div>
+      </li>
+      <li class="resource-item">
+        <span class="resource-arrow">→</span>
+        <div>
+          <span class="resource-name">AI Act (UE)</span>
+          <span class="resource-desc">Marco regulatorio para gobernanza de IA empresarial.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <span>De lo Transaccional a lo Transformacional</span>
+    <span><span class="dot"></span>Síntesis ejecutiva · Abril 2025<span class="dot"></span></span>
+  </footer>
+
+</div>
+</body>
+</html>
